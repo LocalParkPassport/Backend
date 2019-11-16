@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const Parks = require('./parks-model')
+const Parks = require('./parks-model');
+const midware = require('../middleware/middleware')
 
-router.post('/', (req, res) => {
+router.post('/', midware.verifyToken, (req, res) => {
     let park = req.body;
     Parks.add(park)
         .then(saved => {
@@ -11,3 +12,5 @@ router.post('/', (req, res) => {
             res.status(500).json(error.message);
         });
 });
+
+module.exports = router;
