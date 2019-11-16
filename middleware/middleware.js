@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     checkUserInput,
-    verifyToken
+    verifyToken,
+    checkParkInput
 };
 
 function checkUserInput(req, res, next) {
@@ -10,7 +11,7 @@ function checkUserInput(req, res, next) {
     if (user.username && user.password) {
         next();
     } else {
-        res.status(403).json({ message: 'kindly provide credentials' })
+        res.status(403).json({ message: 'kindly provide details' });
     }
 }
 
@@ -33,3 +34,12 @@ function verifyToken(req, res, next) {
         res.status(400).json({ message: 'No credentials provided' });
     };
 };
+
+function checkParkInput (req, res, next) {
+    const { name, location, description } = req.body;
+    if (name && location && description) {
+        next();
+    } else {
+        res.status(403).json({ message: 'kindly provide required information' });
+    }
+}
