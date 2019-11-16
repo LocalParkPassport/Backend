@@ -11,7 +11,7 @@ function checkUserInput(req, res, next) {
     if (user.username && user.password) {
         next();
     } else {
-        res.status(403).json({ message: 'kindly provide details' });
+        res.status(403).json({ message: 'missing required field' });
     }
 }
 
@@ -23,7 +23,7 @@ function verifyToken(req, res, next) {
             process.env.NODE_ENV === 'development' ? 'this is supposed to be secret' : process.env.SECRET,
             (err, decodedToken) => {
                 if (err) {
-                    res.status(401).json({ you: 'shall not pass!' });
+                    res.status(401).json({ 'credentials not valid': err });
                 } else {
                     req.decodedToken = decodedToken;
                     next();
@@ -40,6 +40,6 @@ function checkParkInput (req, res, next) {
     if (name && location && description) {
         next();
     } else {
-        res.status(403).json({ message: 'kindly provide required information' });
+        res.status(403).json({ message: 'missing required field(s)' });
     }
 }
