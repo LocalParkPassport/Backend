@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const Park = require('../parks/parks-model')
 
 module.exports = {
     checkUserInput,
@@ -39,12 +38,7 @@ function verifyToken(req, res, next) {
 function checkParkInput (req, res, next) {
     const { name, location, description } = req.body;
     if (name && location && description) {
-        if ((Park.findByPark(name)).lenght > 0) {
-            next();
-        } else {
-            res.status(403).json({ message: 'username already exists' });
-        }
-        
+        next();
     } else {
         res.status(403).json({ message: 'missing required field(s)' });
     }

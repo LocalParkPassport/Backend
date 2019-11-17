@@ -4,27 +4,27 @@ module.exports = {
     find,
     findById,
     add,
-    findByPark,
+    findByRating,
 };
 
 function find() {
-    return db('parks');
+    return db('ratings');
 };
 
 function findById(id) {
-    return db('parks')
+    return db('ratings')``
         .where({ id })
         .first();
 }
 
-async function add(park) {
-    const [id] = await db('parks').insert(park);
+async function add(rating) {
+    const [id] = await db('ratings').insert(rating);
 
     return findById(id);
 }
 
-function findByPark(name) {
-    return db('parks')
+function findByRating(name) {
+    return db('ratings')
         .where('name', name)
         .first();
 }
