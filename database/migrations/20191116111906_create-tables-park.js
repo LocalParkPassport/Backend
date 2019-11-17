@@ -19,17 +19,17 @@ exports.up = function (knex) {
             tbl.text('description')
                 .notNullable();
             tbl.boolean('dog park')
-                .defaultTo(0);
+                .defaultTo(false);
             tbl.boolean('wildlife')
-                .defaultTo(0);
+                .defaultTo(false);
             tbl.boolean('hiking trails')
-                .defaultTo(0);
+                .defaultTo(false);
             tbl.boolean('disc golf')
-                .defaultTo(0);
+                .defaultTo(false);
             tbl.boolean('open spaces')
-                .defaultTo(0);
+                .defaultTo(false);
             tbl.boolean('climbing trees')
-                .defaultTo(0);
+                .defaultTo(false);
             tbl.integer('user_id')
                 .unsigned()
                 .references('id')
