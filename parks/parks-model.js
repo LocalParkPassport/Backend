@@ -8,7 +8,8 @@ module.exports = {
 };
 
 function find() {
-    return db('parks');
+    return db('parks as p')
+        .join('ratings as r', 'p.id', 'r.park_id');
 };
 
 function findById(id) {
