@@ -13,4 +13,14 @@ router.post('/', [midware.verifyToken, midware.checkParkInput], (req, res) => {
         });
 });
 
+router.get('/', (req, res) => {
+    Parks.find()
+        .then(parks => {
+            res.status(201).json(parks);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
 module.exports = router;
