@@ -1,4 +1,5 @@
 const db = require('../database/dbConfig');
+const mappers = require('../helpers/mappers')
 
 module.exports = {
     find,
@@ -13,9 +14,10 @@ function find() {
 };
 
 function findById(id) {
-    return db('parks')
+    const park = db('parks')
         .where({ id })
         .first();
+    return mappers.parkPropertyToBoolean(park);
 }
 
 async function add(park) {
