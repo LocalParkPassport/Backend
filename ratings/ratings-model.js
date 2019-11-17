@@ -12,7 +12,7 @@ function find() {
 };
 
 function findById(id) {
-    return db('ratings')``
+    return db('ratings')
         .where({ id })
         .first();
 }
