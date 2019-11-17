@@ -10,14 +10,15 @@ module.exports = {
 
 function find() {
     return db('parks as p')
-        .join('ratings as r', 'p.id', 'r.park_id');
+        .join('ratings as r', 'p.id', 'r.park_id')
+        .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 };
 
 function findById(id) {
-    const park = db('parks')
+    return db('parks')
         .where({ id })
-        .first();
-    return mappers.parkPropertyToBoolean(park);
+        .first()
+        .then(park => mappers.parkPropertyToBoolean(park));
 }
 
 async function add(park) {
@@ -29,5 +30,6 @@ async function add(park) {
 function findByPark(name) {
     return db('parks')
         .where('name', name)
-        .first();
+        .first()
+        .then(park => mappers.parkPropertyToBoolean(park));
 }
