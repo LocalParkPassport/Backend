@@ -26,13 +26,33 @@ function parkPropertyToBoolean(park) {
 };
 
 function parkPropertyToInteger(park) {
-    return {
-        ...park,
-        "dog park": booleanToInteger(park["dog park"]),
-        wildlife: booleanToInteger(park.wildlife),
-        "hiking trails": booleanToInteger(park["hiking trails"]),
-        "disc golf": booleanToInteger(park["disc golf"]),
-        "open spaces": booleanToInteger(park["open spaces"]),
-        "climbing trees": booleanToInteger(park["climbing trees"]),
-    };
+    if(park["dog park"] != undefined) {
+        park["dog park"]= booleanToInteger(park["dog park"])
+    }
+    if(park.wildlife != undefined) {
+        park.wildlife= booleanToInteger(park.wildlife)
+    }
+    if(park["hiking trails"] != undefined) {
+        park["hiking trails"]= booleanToInteger(park["hiking trails"])
+    }
+    if(park["disc golf"] != undefined) {
+        park["disc golf"]= booleanToInteger(park["disc golf"])
+    }
+    if(park["open spaces"] != undefined) {
+        park["open spaces"]= booleanToInteger(park["open spaces"])
+    }
+    if(park["climbing trees"] != undefined) {
+        park["climbing trees"]= booleanToInteger(park["climbing trees"])
+    }
+    // result = {
+    //     ...park,
+    //     "dog park": booleanToInteger(park["dog park"]),
+    //     wildlife: booleanToInteger(park.wildlife),
+    //     "hiking trails": booleanToInteger(park["hiking trails"]),
+    //     "disc golf": booleanToInteger(park["disc golf"]),
+    //     "open spaces": booleanToInteger(park["open spaces"]),
+    //     "climbing trees": booleanToInteger(park["climbing trees"]),
+    // };
+    console.log(park)
+    return park
 };

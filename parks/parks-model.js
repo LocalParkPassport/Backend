@@ -28,12 +28,13 @@ async function add(park) {
 }
 
 function findByPark(body) {
+    search = mappers.parkPropertyToInteger(body);
     
-
     return db('parks')
         .where('name', 'like', `%${search.name}%`)
         .where('location', 'like', `%${search.location}%`)
         .where('description', 'like', `%${search.description}%`)
         .where('dog park', 'like', `%${search["dog park"]}%`)
+        .where('wildlife', 'like', `%${search["wildlife"]}%`)
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 }
