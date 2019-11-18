@@ -36,5 +36,9 @@ function findByPark(body) {
         .where('description', 'like', `%${search.description}%`)
         .where('dog park', 'like', `%${search["dog park"]}%`)
         .where('wildlife', 'like', `%${search["wildlife"]}%`)
+        .where('hiking trails', 'like', `%${search["hiking trails"]}%`)
+        .where('disc golf', 'like', `%${search["disc golf"]}%`)
+        .where('open spaces', 'like', `%${search["open spaces"]}%`)
+        .where('climbing trees', 'like', `%${search["climbing trees"]}%`)
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 }
