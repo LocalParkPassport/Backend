@@ -1,10 +1,15 @@
 module.exports = {
     integerToBoolean,
-    parkPropertyToBoolean
+    parkPropertyToBoolean,
+    booleanToInteger
 }
 
 function integerToBoolean(int) {
     return int === 1 ? true : false;
+}
+
+function booleanToInteger(boolean) {
+    return boolean === true ? 1 : 0;
 }
 
 function parkPropertyToBoolean(park) {
