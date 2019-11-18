@@ -27,9 +27,8 @@ async function add(park) {
     return findById(id);
 }
 
-function findByPark(name) {
+function findByPark(search) {
     return db('parks')
-        .where('name', name)
-        .first()
-        .then(park => mappers.parkPropertyToBoolean(park));
+        .where('name', 'like', `%${search.name}%`)
+        .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 }

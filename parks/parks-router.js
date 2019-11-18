@@ -23,4 +23,15 @@ router.get('/', (req, res) => {
         })
 })
 
+router.get('/search', (req, res) => {
+    let search = req.body;
+    Parks.findByPark(search)
+        .then(parks => {
+            res.status(201).json(parks);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
 module.exports = router;
