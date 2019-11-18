@@ -22,7 +22,7 @@ function findById(id) {
 }
 
 async function add(park) {
-    const [id] = await db('parks').insert(park);
+    const [id] = await db('parks').insert(park, 'id');
 
     return findById(id);
 }
