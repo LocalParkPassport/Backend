@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
+const Park = require('../parks/parks-model')
 
 module.exports = {
     checkUserInput,
     verifyToken,
-    checkParkInput
+    checkParkInput,
+    validateParkId
 };
 
 function checkUserInput(req, res, next) {
@@ -42,4 +44,21 @@ function checkParkInput (req, res, next) {
     } else {
         res.status(403).json({ message: 'missing required field(s)' });
     }
-}
+};
+
+function validateParkId(req, res, next) {
+    Park.find(req.params.id)
+        .then(park => {
+            if(park) {
+                req.park = park;
+                next();
+            } else {
+                res.status(404).json({ message: "invalid park id" });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({
+                'something went wrong quering db': error.message
+            });
+        });
+};

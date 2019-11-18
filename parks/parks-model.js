@@ -6,12 +6,14 @@ module.exports = {
     findById,
     add,
     findByPark,
+    addRating,
+    getParkRatings
 };
 
 function find() {
     return db('parks')
         .leftJoin('ratings', 'parks.id', 'ratings.park_id')
-        .where('parks.id', id)
+        .select('parks.*', 'ratings.rating', 'ratings.comments', 'ratings.id as rating_id')
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 };
 
@@ -48,3 +50,15 @@ function findByPark(body) {
         .where('climbing trees', 'like', search["climbing trees"] !== undefined ? `%${search["climbing trees"]}%` : "%%")
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 }
+
+function addRating (rating) {
+    return db('ratings')
+      .insert(rating)
+      .then(([id]) => this.get(id));
+}
+
+function getParkRatings(parkId) {
+    return db('ratings')
+      .where('park_id', parkId)
+      .then(ratings => ratings.map(rating => mappers.parkPropertyToBoolean(rating)));
+  }
