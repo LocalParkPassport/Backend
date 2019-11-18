@@ -44,15 +44,6 @@ function parkPropertyToInteger(park) {
     if(park["climbing trees"] !== undefined) {
         park["climbing trees"]= booleanToInteger(park["climbing trees"])
     }
-    // result = {
-    //     ...park,
-    //     "dog park": booleanToInteger(park["dog park"]),
-    //     wildlife: booleanToInteger(park.wildlife),
-    //     "hiking trails": booleanToInteger(park["hiking trails"]),
-    //     "disc golf": booleanToInteger(park["disc golf"]),
-    //     "open spaces": booleanToInteger(park["open spaces"]),
-    //     "climbing trees": booleanToInteger(park["climbing trees"]),
-    // };
     console.log(park)
     return park
 };

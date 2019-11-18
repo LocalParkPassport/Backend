@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.get('/search', (req, res) => {
+router.post('/search', (req, res) => {
     let search = req.body;
     Parks.findByPark(search)
         .then(parks => {
