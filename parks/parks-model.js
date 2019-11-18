@@ -11,7 +11,7 @@ module.exports = {
 function find() {
     return db('parks')
         .leftJoin('ratings', 'parks.id', 'ratings.park_id')
-        //.then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
+        .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 };
 
 function findById(id) {
