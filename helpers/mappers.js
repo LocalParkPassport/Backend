@@ -26,22 +26,22 @@ function parkPropertyToBoolean(park) {
 };
 
 function parkPropertyToInteger(park) {
-    if(park["dog park"] != undefined) {
+    if(park["dog park"] !== undefined) {
         park["dog park"]= booleanToInteger(park["dog park"])
     }
-    if(park.wildlife != undefined) {
+    if(park.wildlife !== undefined) {
         park.wildlife= booleanToInteger(park.wildlife)
     }
-    if(park["hiking trails"] != undefined) {
+    if(park["hiking trails"] !== undefined) {
         park["hiking trails"]= booleanToInteger(park["hiking trails"])
     }
-    if(park["disc golf"] != undefined) {
+    if(park["disc golf"] !== undefined) {
         park["disc golf"]= booleanToInteger(park["disc golf"])
     }
-    if(park["open spaces"] != undefined) {
+    if(park["open spaces"] !== undefined) {
         park["open spaces"]= booleanToInteger(park["open spaces"])
     }
-    if(park["climbing trees"] != undefined) {
+    if(park["climbing trees"] !== undefined) {
         park["climbing trees"]= booleanToInteger(park["climbing trees"])
     }
     // result = {
