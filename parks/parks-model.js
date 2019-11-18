@@ -30,5 +30,6 @@ async function add(park) {
 function findByPark(search) {
     return db('parks')
         .where('name', 'like', `%${search.name}%`)
+        .where('location', 'like', `%${search.location}%`)
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 }
