@@ -9,9 +9,9 @@ module.exports = {
 };
 
 function find() {
-    return db('parks as p')
-        .join('ratings as r', 'p.id', 'r.park_id')
-        .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
+    return db('parks')
+        .join('ratings', 'parks.id', 'ratings.park_id')
+        //.then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 };
 
 function findById(id) {
