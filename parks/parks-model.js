@@ -28,15 +28,8 @@ async function add(park) {
 }
 
 function findByPark(body) {
-    search = {
-        ...body,
-        "dog park": integerToBoolean(park["dog park"]),
-        wildlife: integerToBoolean(park.wildlife),
-        "hiking trails": integerToBoolean(park["hiking trails"]),
-        "disc golf": integerToBoolean(park["disc golf"]),
-        "open spaces": integerToBoolean(park["open spaces"]),
-        "climbing trees": integerToBoolean(park["climbing trees"]),
-    }
+    
+
     return db('parks')
         .where('name', 'like', `%${search.name}%`)
         .where('location', 'like', `%${search.location}%`)
