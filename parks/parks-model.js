@@ -3,28 +3,59 @@ const mappers = require('../helpers/mappers')
 
 module.exports = {
     find,
-    findById,
+    findBy,
     add,
     findByPark,
+    addRating,
+    getParkRatings,
+    remove,
+    update
 };
 
 function find() {
-    return db('parks as p')
-        .join('ratings as r', 'p.id', 'r.park_id')
+    return db('parks')
+        .leftJoin('ratings', 'parks.id', 'ratings.park_id')
+        .select('parks.*', 'ratings.rating', 'ratings.comments', 'ratings.id as rating_id')
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 };
 
-function findById(id) {
-    return db('parks')
-        .where({ id })
-        .first()
-        .then(park => mappers.parkPropertyToBoolean(park));
+// function findById(id) {
+//     return db('parks')
+//         .where({ id })
+//         .first()
+//         .then(park => mappers.parkPropertyToBoolean(park));
+// }
+
+function findBy(id) {
+    let query = db('parks');
+
+    if(id) {
+        query.where('parks.id', id).first();
+
+        const promises = [query, getParkRatings(id)]
+
+        return Promise.all(promises).then(function(results) {
+            let [park, ratings] = results;
+
+            if (park) {
+                park.ratings = ratings;
+
+                return mappers.parkPropertyToBoolean(park);
+            } else {
+                return null
+            }
+        });
+    }
+
+    return query.then(parks => {
+        return parks.map(park => mappers.parkPropertyToBoolean(park))
+    })
 }
 
 async function add(park) {
     const [id] = await db('parks').insert(park, 'id');
 
-    return findById(id);
+    return findBy(id);
 }
 
 function findByPark(body) {
@@ -46,4 +77,29 @@ function findByPark(body) {
         .where('open spaces', 'like', search["open spaces"] !== undefined ? `%${search["open spaces"]}%` : "%%")
         .where('climbing trees', 'like', search["climbing trees"] !== undefined ? `%${search["climbing trees"]}%` : "%%")
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
+}
+
+function addRating (rating) {
+    return db('ratings')
+      .insert(rating)
+      .then(([id]) => findBy(rating.park_id));
+}
+
+function getParkRatings(parkId) {
+    return db('ratings')
+      .where('park_id', parkId)
+      .then(ratings => ratings.map(rating => mappers.parkPropertyToBoolean(rating)));
+};
+
+function remove(id) {
+    return db('parks')
+        .where('id', id)
+        .del();
+}
+
+function update(id, changes) {
+    return db('parks')
+        .where('id', id)
+        .update(changes)
+        .then(count => (count > 0 ? findBy(id) : null))
 }

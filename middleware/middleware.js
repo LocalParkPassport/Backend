@@ -1,9 +1,14 @@
 const jwt = require('jsonwebtoken');
+const Park = require('../parks/parks-model')
+const Ratings = require('../ratings/ratings-model')
 
 module.exports = {
     checkUserInput,
     verifyToken,
-    checkParkInput
+    checkParkInput,
+    validateParkId,
+    validateRatingId,
+    validateRating
 };
 
 function checkUserInput(req, res, next) {
@@ -35,11 +40,55 @@ function verifyToken(req, res, next) {
     };
 };
 
-function checkParkInput (req, res, next) {
+function checkParkInput(req, res, next) {
     const { name, location, description } = req.body;
     if (name && location && description) {
         next();
     } else {
         res.status(403).json({ message: 'missing required field(s)' });
+    }
+};
+
+function validateParkId(req, res, next) {
+    Park.findBy(req.params.id)
+        .then(park => {
+            if (park) {
+                req.park = park;
+                next();
+            } else {
+                res.status(404).json({ message: "invalid park id" });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({
+                'something went wrong quering db': error.message
+            });
+        });
+};
+
+function validateRatingId(req, res, next) {
+    Ratings.find(req.params.id)
+        .then(rating => {
+            if (rating) {
+                req.rating = rating;
+                next();
+            } else {
+                res.status(404).json({ message: "invalid rating id" });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({
+                'something went wrong quering db': error.message
+            });
+        });
+}
+
+function validateRating(req, res, next) {
+    if (!req.body) {
+        res.status(400).json({ message: "missing rating data" })
+    } else if (!req.body.rating || !req.body.comments) {
+        res.status(400).json({ message: "missing required field" })
+    } else {
+        next();
     }
 }
