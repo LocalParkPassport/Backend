@@ -32,10 +32,11 @@ exports.up = function (knex) {
                 .defaultTo(false);
             tbl.integer('user_id')
                 .unsigned()
+                .notNullable()
                 .references('id')
                 .inTable('users')
                 .onUpdate('CASCADE')
-                .onDelete('SET NULL');
+                .onDelete('CASCADE');
         })
         .createTable('ratings', tbl => {
             tbl.increments();
