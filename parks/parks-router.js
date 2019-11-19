@@ -63,7 +63,7 @@ router.post('/search', (req, res) => {
 });
 
 router.delete('/:id', midware.validateParkId, (req, res) => {
-    Parks.remove(req.project.id)
+    Parks.remove(req.park.id)
         .then(info => {
             res.status(200).json({ message: `removed ${info} park` })
         })
@@ -77,7 +77,7 @@ router.delete('/:id', midware.validateParkId, (req, res) => {
 router.put('/:id', [midware.verifyToken, midware.validateParkId, midware.checkParkInput], (req, res) => {
     Parks.update(req.park.id, req.body)
         .then(park => {
-            res.status(200).json({ message: `edited ${park} park(s)` })
+            res.status(200).json(park)
         })
         .catch(error => {
             res.status(500).json({
