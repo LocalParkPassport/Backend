@@ -74,4 +74,16 @@ router.delete('/:id', midware.validateParkId, (req, res) => {
         });
 })
 
+router.put('/:id', [midware.validateParkId, midware.checkParkInput], (req, res) => {
+    Parks.update(req.park.id, req.body)
+        .then(park => {
+            res.status(200).json({ message: `edited ${park} park(s)` })
+        })
+        .catch(error => {
+            res.status(500).json({
+                'error updating project': error.message
+            });
+        });
+});
+
 module.exports = router;

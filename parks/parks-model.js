@@ -8,7 +8,8 @@ module.exports = {
     findByPark,
     addRating,
     getParkRatings,
-    remove
+    remove,
+    update
 };
 
 function find() {
@@ -94,4 +95,11 @@ function remove(id) {
     return db('parks')
         .where('id', id)
         .del();
+}
+
+function update(id, changes) {
+    return db('parks')
+        .where('id', id)
+        .update(changes)
+        .then(count => (count > 0 ? findBy(id) : null))
 }
