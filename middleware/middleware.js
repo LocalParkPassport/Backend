@@ -8,7 +8,6 @@ module.exports = {
     checkParkInput,
     validateParkId,
     validateRatingId,
-    validateAction,
     validateRating
 };
 

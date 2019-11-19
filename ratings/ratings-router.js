@@ -17,7 +17,7 @@ router.get('/:id', midware.validateRatingId, (req, res) => {
     res.status(200).json(req.rating);
 });
 
-router.delete('/:id', middleware.validateRatingId, (req, res) => {
+router.delete('/:id', midware.validateRatingId, (req, res) => {
     Ratings.remove(req.rating.id)
         .then(num => {
             res.status(200).json({ message: `removed ${num} rating` })
@@ -29,7 +29,7 @@ router.delete('/:id', middleware.validateRatingId, (req, res) => {
         });
 });
 
-router.put('/:id', [middleware.validateRating, middleware.validateRatingId], (req, res) => {
+router.put('/:id', [midware.validateRating, midware.validateRatingId], (req, res) => {
     Ratings.update(req.rating.id, req.body)
         .then(num => {
             res.status(200).json({ message: `edited ${num} rating ` })
