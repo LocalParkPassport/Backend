@@ -49,7 +49,7 @@ function checkParkInput (req, res, next) {
 };
 
 function validateParkId(req, res, next) {
-    Park.find(req.params.id)
+    Park.findBy(req.params.id)
         .then(park => {
             if(park) {
                 req.park = park;
