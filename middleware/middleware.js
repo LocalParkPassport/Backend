@@ -1,11 +1,13 @@
 const jwt = require('jsonwebtoken');
 const Park = require('../parks/parks-model')
+const Ratings = require('../ratings/ratings-model')
 
 module.exports = {
     checkUserInput,
     verifyToken,
     checkParkInput,
-    validateParkId
+    validateParkId,
+    validateRatingId
 };
 
 function checkUserInput(req, res, next) {
@@ -62,3 +64,20 @@ function validateParkId(req, res, next) {
             });
         });
 };
+
+function validateRatingId(req, res, next) {
+    Ratings.find(req.params.id)
+        .then(rating => {
+            if(rating) {
+                req.rating = rating;
+                next();
+            } else {
+                res.status(404).json({ message: "invalid rating id" });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({
+                'something went wrong quering db': error.message
+            });
+        });
+}

@@ -9,8 +9,12 @@ router.get('/', (req, res) => {
             res.status(200).json(ratings);
         })
         .catch(error => {
-            res.status(500).json({'Error retrieving actions': error.message});
+            res.status(500).json({'Error retrieving ratings': error.message});
         });
+});
+
+router.get('/:id', midware.validateRatingId, (req, res) => {
+    res.status(200).json(req.rating);
 });
 
 module.exports = router;
