@@ -39,7 +39,7 @@ router.get('/:id/ratings', midware.validateParkId, (req, res) => {
         })
 });
 
-router.post('/:id/ratings', (req, res) => {
+router.post('/:id/ratings', midware.verifyToken, (req, res) => {
     //let park = req.body;
     const postInfo = { ...req.body, park_id: req.params.id }
     Parks.addRating(postInfo)

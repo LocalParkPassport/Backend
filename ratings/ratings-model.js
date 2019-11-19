@@ -1,4 +1,5 @@
 const db = require('../database/dbConfig');
+const mappers = require('../helpers/mappers')
 
 module.exports = {
     find,
@@ -7,7 +8,13 @@ module.exports = {
     findByRating,
 };
 
-function find() {
+function find(id) {
+    if (id) {
+        return db('ratings')
+            .where('id', id)
+            .first()
+    }
+
     return db('ratings');
 };
 
@@ -20,7 +27,7 @@ function findById(id) {
 async function add(rating) {
     const [id] = await db('ratings').insert(rating);
 
-    return findById(id);
+    return find(id);
 }
 
 function findByRating(name) {

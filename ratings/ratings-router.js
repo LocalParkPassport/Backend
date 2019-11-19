@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const Parks = require('./ratings-model');
+const Ratings = require('./ratings-model');
 const midware = require('../middleware/middleware')
 
-router.post('/', midware.verifyToken, (req, res) => {
-    let rating = req.body;
-    Parks.add(rating)
-        .then(saved => {
-            res.status(201).json(saved);
+router.get('/', (req, res) => {
+    //let rating = req.body;
+    Ratings.find()
+        .then(ratings => {
+            res.status(200).json(ratings);
         })
         .catch(error => {
-            res.status(500).json(error.message);
+            res.status(500).json({'Error retrieving actions': error.message});
         });
 });
 
