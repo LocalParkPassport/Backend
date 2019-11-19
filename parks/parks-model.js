@@ -61,21 +61,21 @@ async function add(park) {
 function findByPark(body) {
     search = mappers.parkPropertyToInteger(body);
 
-    const a = search["dog park"] !== undefined ? `%${search["dog park"]}%` : 0 || 1;
+    const a = search["dog_park"] !== undefined ? `%${search["dog_park"]}%` : 0 || 1;
     const b = search["wildlife"] !== undefined ? `%${search["wildlife"]}%` : 0 || 1;
-    const c = search["hiking trails"] !== undefined ? `%${search["hiking trails"]}%` : 0 || 1;
+    const c = search["hiking_trails"] !== undefined ? `%${search["hiking_trails"]}%` : 0 || 1;
     console.log(a, b, c);
     
     return db('parks')
         .where('name', 'like', `%${search.name}%`)
         .where('location', 'like', `%${search.location}%`)
         .where('description', 'like', `%${search.description}%`)
-        .where('dog park', 'like', search["dog park"] !== undefined ? `%${search["dog park"]}%` : "%%")
+        .where('dog_park', 'like', search["dog_park"] !== undefined ? `%${search["dog_park"]}%` : "%%")
         .where('wildlife', 'like', search["wildlife"] !== undefined ? `%${search["wildlife"]}%` : "%%")
-        .where('hiking trails', 'like', search["hiking trails"] !== undefined ? `%${search["hiking trails"]}%` : "%%")
-        .where('disc golf', 'like', search["disc golf"] !== undefined ? `%${search["disc golf"]}%` : "%%")
-        .where('open spaces', 'like', search["open spaces"] !== undefined ? `%${search["open spaces"]}%` : "%%")
-        .where('climbing trees', 'like', search["climbing trees"] !== undefined ? `%${search["climbing trees"]}%` : "%%")
+        .where('hiking_trails', 'like', search["hiking_trails"] !== undefined ? `%${search["hiking_trails"]}%` : "%%")
+        .where('disc_golf', 'like', search["disc_golf"] !== undefined ? `%${search["disc_golf"]}%` : "%%")
+        .where('open_spaces', 'like', search["open_spaces"] !== undefined ? `%${search["open_spaces"]}%` : "%%")
+        .where('climbing_trees', 'like', search["climbing_trees"] !== undefined ? `%${search["climbing_trees"]}%` : "%%")
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 }
 
