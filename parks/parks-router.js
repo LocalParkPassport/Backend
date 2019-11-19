@@ -34,7 +34,7 @@ router.post('/search', (req, res) => {
         })
 });
 
-router.post('/:id/ratings', [midware.verifyToken, midware.checkParkInput], (req, res) => {
+router.post('/:id/ratings', (req, res) => {
     //let park = req.body;
     const postInfo = { ...req.body, park_id: req.params.id }
     Parks.addRating(postInfo)

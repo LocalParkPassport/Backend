@@ -17,11 +17,33 @@ function find() {
         .then(parks => parks.map(park => mappers.parkPropertyToBoolean(park)));
 };
 
+// function findById(id) {
+//     return db('parks')
+//         .where({ id })
+//         .first()
+//         .then(park => mappers.parkPropertyToBoolean(park));
+// }
+
 function findById(id) {
-    return db('parks')
-        .where({ id })
-        .first()
-        .then(park => mappers.parkPropertyToBoolean(park));
+    let query = db('parks');
+
+    if(id) {
+        query.where('parks.id', id).first();
+
+        const promises = [query, getParkRatings(id)]
+
+        return Promise.all(promises).then(function(results) {
+            let [park, ratings] = results;
+
+            if (park) {
+                park.ratings = ratings;
+
+                return mappers.parkPropertyToBoolean(park);
+            } else {
+                return null
+            }
+        });
+    }
 }
 
 async function add(park) {
@@ -54,7 +76,7 @@ function findByPark(body) {
 function addRating (rating) {
     return db('ratings')
       .insert(rating)
-      .then(([id]) => this.get(id));
+      .then(([id]) => findById(id));
 }
 
 function getParkRatings(parkId) {
