@@ -82,7 +82,7 @@ function findByPark(body) {
 function addRating (rating) {
     return db('ratings')
       .insert(rating)
-      .then(([id]) => findBy(id));
+      .then(([id]) => findBy(rating.park_id));
 }
 
 function getParkRatings(parkId) {
