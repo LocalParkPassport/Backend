@@ -3,7 +3,7 @@ const mappers = require('../helpers/mappers')
 
 module.exports = {
     find,
-    findById,
+    findBy,
     add,
     findByPark,
     addRating,
@@ -24,7 +24,7 @@ function find() {
 //         .then(park => mappers.parkPropertyToBoolean(park));
 // }
 
-function findById(id) {
+function findBy(id) {
     let query = db('parks');
 
     if(id) {
@@ -44,12 +44,16 @@ function findById(id) {
             }
         });
     }
+
+    return query.then(parks => {
+        return parks.map(park => mappers.parkPropertyToBoolean(park))
+    })
 }
 
 async function add(park) {
     const [id] = await db('parks').insert(park, 'id');
 
-    return findById(id);
+    return findBy(id);
 }
 
 function findByPark(body) {
@@ -76,7 +80,7 @@ function findByPark(body) {
 function addRating (rating) {
     return db('ratings')
       .insert(rating)
-      .then(([id]) => findById(id));
+      .then(([id]) => findBy(id));
 }
 
 function getParkRatings(parkId) {
