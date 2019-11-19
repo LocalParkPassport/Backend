@@ -62,4 +62,16 @@ router.post('/search', (req, res) => {
         })
 });
 
+router.delete('/:id', midware.validateParkId, (req, res) => {
+    Parks.remove(req.project.id)
+        .then(info => {
+            res.status(200).json({ message: `removed ${info} park` })
+        })
+        .catch(error => {
+            res.status(500).json({
+                'error removing park': error.message
+            });
+        });
+})
+
 module.exports = router;

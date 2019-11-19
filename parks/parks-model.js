@@ -7,7 +7,8 @@ module.exports = {
     add,
     findByPark,
     addRating,
-    getParkRatings
+    getParkRatings,
+    remove
 };
 
 function find() {
@@ -87,4 +88,10 @@ function getParkRatings(parkId) {
     return db('ratings')
       .where('park_id', parkId)
       .then(ratings => ratings.map(rating => mappers.parkPropertyToBoolean(rating)));
-  }
+};
+
+function remove(id) {
+    return db('parks')
+        .where('id', id)
+        .del();
+}
