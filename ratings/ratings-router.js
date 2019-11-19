@@ -31,8 +31,8 @@ router.delete('/:id', midware.validateRatingId, (req, res) => {
 
 router.put('/:id', [midware.validateRating, midware.validateRatingId], (req, res) => {
     Ratings.update(req.rating.id, req.body)
-        .then(num => {
-            res.status(200).json({ message: `edited ${num} rating ` })
+        .then(edited => {
+            res.status(200).json(edited)
         })
         .catch(error => {
             res.status(500).json({
