@@ -7,7 +7,9 @@ module.exports = {
     verifyToken,
     checkParkInput,
     validateParkId,
-    validateRatingId
+    validateRatingId,
+    validateAction,
+    validateRating
 };
 
 function checkUserInput(req, res, next) {
@@ -39,7 +41,7 @@ function verifyToken(req, res, next) {
     };
 };
 
-function checkParkInput (req, res, next) {
+function checkParkInput(req, res, next) {
     const { name, location, description } = req.body;
     if (name && location && description) {
         next();
@@ -51,7 +53,7 @@ function checkParkInput (req, res, next) {
 function validateParkId(req, res, next) {
     Park.findBy(req.params.id)
         .then(park => {
-            if(park) {
+            if (park) {
                 req.park = park;
                 next();
             } else {
@@ -68,7 +70,7 @@ function validateParkId(req, res, next) {
 function validateRatingId(req, res, next) {
     Ratings.find(req.params.id)
         .then(rating => {
-            if(rating) {
+            if (rating) {
                 req.rating = rating;
                 next();
             } else {
@@ -80,4 +82,14 @@ function validateRatingId(req, res, next) {
                 'something went wrong quering db': error.message
             });
         });
+}
+
+function validateRating(req, res, next) {
+    if (!req.body) {
+        res.status(400).json({ message: "missing rating data" })
+    } else if (!req.body.rating || !req.body.comments) {
+        res.status(400).json({ message: "missing required field" })
+    } else {
+        next();
+    }
 }
