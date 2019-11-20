@@ -18,24 +18,25 @@ exports.up = function (knex) {
                 .notNullable();
             tbl.text('description')
                 .notNullable();
-            tbl.boolean('dog park')
+            tbl.boolean('dog_park')
                 .defaultTo(false);
             tbl.boolean('wildlife')
                 .defaultTo(false);
-            tbl.boolean('hiking trails')
+            tbl.boolean('hiking_trails')
                 .defaultTo(false);
-            tbl.boolean('disc golf')
+            tbl.boolean('disc_golf')
                 .defaultTo(false);
-            tbl.boolean('open spaces')
+            tbl.boolean('open_spaces')
                 .defaultTo(false);
-            tbl.boolean('climbing trees')
+            tbl.boolean('climbing_trees')
                 .defaultTo(false);
             tbl.integer('user_id')
                 .unsigned()
+                .notNullable()
                 .references('id')
                 .inTable('users')
                 .onUpdate('CASCADE')
-                .onDelete('SET NULL');
+                .onDelete('CASCADE');
         })
         .createTable('ratings', tbl => {
             tbl.increments();
