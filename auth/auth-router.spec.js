@@ -12,7 +12,7 @@ const input = {
 }
 
 describe('users authorization', () => {
-    describe('POST /users signup', () => {
+    describe('POST /users', () => {
         test('should return 201, with testing as user and correct content-type', () => {
             return request(server)
                 .post('/api/auth/register')
