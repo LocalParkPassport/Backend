@@ -1,5 +1,6 @@
 const db = require('../database/dbConfig');
 const mappers = require('../helpers/mappers')
+const ratingsModel = require('../ratings/ratings-model')
 
 module.exports = {
     find,
@@ -47,6 +48,23 @@ function findBy(id) {
         });
     }
 
+    // const promises = [query, ratingsModel.find()]
+    
+    // return Promise.all(promises).then((results) => {
+    //     let [parks, ratings] = results;
+    //     let ratingArray = [];
+        
+    //     parks.map(park => {
+    //         ratings.map(rating => {
+    //             if (park.id === rating.park_id) {
+    //                 ratingArray.push(rating);
+    //             }
+    //             return park.ratings = ratingArray;
+    //         })
+    //     })
+    //     return parks.map(park => mappers.parkPropertyToBoolean(park));
+    // })
+
     return query.then(parks => {
         return parks.map(park => mappers.parkPropertyToBoolean(park))
     })
@@ -61,7 +79,7 @@ async function add(park) {
 function findByPark(body) {
     search = mappers.parkPropertyToInteger(body);
 
-    const a = search["dog_park"] !== undefined ? `%${search["dog_park"]}%` : 0 || 1;
+    const a = search.dog_park !== undefined ? `%${search.dog_park}%` : 0 || 1;
     const b = search["wildlife"] !== undefined ? `%${search["wildlife"]}%` : 0 || 1;
     const c = search["hiking_trails"] !== undefined ? `%${search["hiking_trails"]}%` : 0 || 1;
     console.log(a, b, c);
@@ -70,7 +88,7 @@ function findByPark(body) {
         .where('name', 'like', `%${search.name}%`)
         .where('location', 'like', `%${search.location}%`)
         .where('description', 'like', `%${search.description}%`)
-        .where('dog_park', 'like', search["dog_park"] !== undefined ? `%${search["dog_park"]}%` : "%%")
+        .where('dog_park', 'like', search.dog_park !== undefined ? `%${search.dog_park}%` : "%%")
         .where('wildlife', 'like', search["wildlife"] !== undefined ? `%${search["wildlife"]}%` : "%%")
         .where('hiking_trails', 'like', search["hiking_trails"] !== undefined ? `%${search["hiking_trails"]}%` : "%%")
         .where('disc_golf', 'like', search["disc_golf"] !== undefined ? `%${search["disc_golf"]}%` : "%%")

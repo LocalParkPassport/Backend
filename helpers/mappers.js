@@ -6,28 +6,28 @@ module.exports = {
 };
 
 function integerToBoolean(int) {
-    return int === 1 ? true : false;
+    return int == 1 ? true : false;
 };
 
 function booleanToInteger(boolean) {
-    return boolean === true ? 1 : 0;
+    return boolean == true ? 1 : 0;
 };
 
 function parkPropertyToBoolean(park) {
     return {
         ...park,
-        "dog_park": integerToBoolean(park["dog_park"]),
+        dog_park: integerToBoolean(park.dog_park),
         wildlife: integerToBoolean(park.wildlife),
-        "hiking_trails": integerToBoolean(park["hiking_trails"]),
-        "disc_golf": integerToBoolean(park["disc_golf"]),
-        "open_spaces": integerToBoolean(park["open_spaces"]),
-        "climbing_trees": integerToBoolean(park["climbing_trees"]),
+        hiking_trails: integerToBoolean(park.hiking_trails),
+        disc_golf: integerToBoolean(park.disc_golf),
+        open_spaces: integerToBoolean(park.open_spaces),
+        climbing_trees: integerToBoolean(park.climbing_trees),
     };
 };
 
 function parkPropertyToInteger(park) {
-    if(park["dog_park"] !== undefined) {
-        park["dog_park"]= booleanToInteger(park["dog_park"])
+    if(park.dog_park !== undefined) {
+        park.dog_park= booleanToInteger(park.dog_park)
     }
     if(park.wildlife !== undefined) {
         park.wildlife= booleanToInteger(park.wildlife)
