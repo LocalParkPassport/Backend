@@ -20,7 +20,7 @@ server.use('/api/ratings', ratingsRouter)
 server.use('/api/users', usersRouter)
 
 server.get('/', (req, res) => {
-    res.send('up and runnin!!!');
+    res.send({up: 'up and runnin!!!'});
 });
 
 module.exports = server;
