@@ -7,6 +7,7 @@ beforeEach(async () => {
 
 describe('Parks model', () => {
     describe('insert function', () => {
+        
         let parks
         test('should insert a park', async () => {
             await Parks.add({ name: 'park1', location: 'loc1', description: 'none', user_id: 1})

@@ -6,6 +6,8 @@ beforeAll(async () => {
     await db('users').truncate();
 })
 
+let token;
+
 const input = {
     username: 'testing',
     password: 'testing'
@@ -25,19 +27,19 @@ describe('users authorization', () => {
                 })
         });
 
-        test('should return 200, with testing as user and correct content-type', (done) => {
-            request(server)
+        test('should return 200, with testing as user and correct content-type', async () => {
+            const response = await request(server)
                 .post('/api/auth/login')
                 .send(input)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
-                .expect(/token/)
-                .end((err, res) => {
-                    if (err) return done(err);
-                    done()
-                })
+                
+            token = response.body.token
+            //console.log(token)
         });
     });
-
 })
+
+
+//module.exports = token;
