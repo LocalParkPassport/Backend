@@ -102,7 +102,7 @@ function findByPark(body) {
 
 function addRating (rating) {
     return db('ratings')
-      .insert(rating)
+      .insert(rating, 'id')
       .then(([id]) => findBy(rating.park_id));
 }
 
