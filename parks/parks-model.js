@@ -28,7 +28,9 @@ function find() {
 // }
 
 function findBy(id) {
-    let query = db('parks');
+    let query = db('parks')
+        .leftJoin('users', 'parks.user_id', 'users.id')
+        .select('parks.*', 'users.username');
 
     if(id) {
         query.where('parks.id', id).first();
