@@ -32,6 +32,7 @@ describe('users authorization', () => {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
+                .expect(/token/)
                 .end((err, res) => {
                     if (err) return done(err);
                     done()
