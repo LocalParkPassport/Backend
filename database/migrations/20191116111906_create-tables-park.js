@@ -18,18 +18,21 @@ exports.up = function (knex) {
                 .notNullable();
             tbl.text('description')
                 .notNullable();
-            tbl.boolean('dog_park')
+            tbl.boolean('restrooms')
                 .defaultTo(false);
-            tbl.boolean('wildlife')
+            tbl.boolean('fishing')
                 .defaultTo(false);
-            tbl.boolean('hiking_trails')
+            tbl.boolean('camping')
                 .defaultTo(false);
-            tbl.boolean('disc_golf')
+            tbl.boolean('tennis')
                 .defaultTo(false);
-            tbl.boolean('open_spaces')
+            tbl.boolean('basketball')
                 .defaultTo(false);
-            tbl.boolean('climbing_trees')
+            tbl.boolean('golf')
                 .defaultTo(false);
+            tbl.boolean('dogPark')
+                .defaultTo(false);
+            tbl.text('img');
             tbl.integer('user_id')
                 .unsigned()
                 .notNullable()

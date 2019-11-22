@@ -28,6 +28,7 @@ router.post('/login', midware.checkUserInput, (req, res) => {
                 res.status(200).json({
                     message: `Welcome ${data.username}`,
                     token: token,
+                    user_id: data.id,
                 });
             } else {
                 res.status(401).json({ message: 'Invalid Credentials' });
