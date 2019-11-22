@@ -44,7 +44,7 @@ router.post('/:id/ratings', midware.verifyToken, (req, res) => {
     const postInfo = { ...req.body, park_id: req.params.id }
     Parks.addRating(postInfo)
         .then(saved => {
-            res.status(210).json(saved);
+            res.status(201).json(saved);
         })
         .catch(error => {
             res.status(500).json(error.message);
